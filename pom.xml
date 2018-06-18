@@ -3,19 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>pl.pionek</groupId>
-	<artifactId>pionek-pom</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>pl.pioun</groupId>
+	<artifactId>mad-cow-pom</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>pionek-pom</name>
-	<description>Parent pom for Pionek</description>
+	<name>mad-cow-pom</name>
+	<description>Parent pom for MadCow</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.0.3.RELEASE</version>
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -23,8 +23,20 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.10</java.version>
 
+		<!--dependencies-->
 		<spring-cloud.version>Finchley.RC2</spring-cloud.version>
+
+		<!--plugins-->
+		<dockerfile-maven.version>1.4.3</dockerfile-maven.version>
+		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
 	</properties>
+
+	<modules>
+		<module>mad-cow-ui</module>
+		<module>mad-cow-service</module>
+		<module>mad-cow-config-service</module>
+		<module>mad-cow-discovery-service</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -38,14 +50,22 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<modules>
-		<module>pionek-ui</module>
-		<module>pionek-service</module>
-		<module>pionek-config-service</module>
-		<module>pionek-discovery-service</module>
-	</modules>
-
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>dockerfile-maven-plugin</artifactId>
+					<version>${dockerfile-maven.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -60,6 +80,76 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>docker-image</id>
+			<properties>
+				<docker.build.directory>${project.build.directory}</docker.build.directory>
+				<docker.source.directory>../docker</docker.source.directory>
+				<docker.image.name>${project.artifactId}</docker.image.name>
+			</properties>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-dockerfile</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${docker.build.directory}</outputDirectory>
+									<resources>
+										<resource>
+											<directory>${docker.source.directory}</directory>
+											<filtering>false</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>build-image</id>
+								<phase>install</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+								<configuration>
+									<contextDirectory>${docker.build.directory}</contextDirectory>
+									<tag>${project.version}</tag>
+									<repository>${docker.image.name}</repository>
+									<pullNewerImage>false</pullNewerImage>
+									<verbose>true</verbose>
+									<buildArgs>
+										<JAR_FILE>${project.build.finalName}-exec.jar</JAR_FILE>
+										<ARTIFACT_NAME>${project.artifactId}</ARTIFACT_NAME>
+									</buildArgs>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>javax.activation</groupId>
+								<artifactId>javax.activation-api</artifactId>
+								<version>1.2.0</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
