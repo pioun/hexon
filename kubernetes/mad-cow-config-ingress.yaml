@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mad-cow-config-ingress
+  annotations:
+    kubernetes.io/ingress.allow-http: 'true'
+spec:
+  rules:
+    - host: madcow.config.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: mad-cow-config-service
+              servicePort: 10001
+          - path: /actuator
+            backend:
+              serviceName: mad-cow-config-service
+              servicePort: 10002
