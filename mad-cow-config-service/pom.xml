@@ -12,12 +12,16 @@
 	<artifactId>mad-cow-config-service</artifactId>
 
 	<name>mad-cow-config-service</name>
-	<description>MadCow service</description>
+	<description>MadCow config service</description>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-netflix-eureka-client</artifactId>
 		</dependency>
 
 		<dependency>

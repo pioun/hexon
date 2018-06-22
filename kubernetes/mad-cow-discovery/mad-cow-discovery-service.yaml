@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mad-cow-discovery-service
+spec:
+  ports:
+  - port: 10101
+    targetPort: 10101
+    name: service
+  - port: 10102
+    targetPort: 10102
+    name: management
+  selector:
+    app: mad-cow-discovery-service
+  type: NodePort

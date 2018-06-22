@@ -10,9 +10,6 @@ spec:
   - port: 10002
     targetPort: 10002
     name: management
-  - port: 22
-    targetPort: 22
-    name: ssh
   selector:
     app: mad-cow-config-service
   type: NodePort
