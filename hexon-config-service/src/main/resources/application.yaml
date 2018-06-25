@@ -1,0 +1,35 @@
+server:
+  port: 9000
+
+management:
+  server:
+    port: 9001
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URI:http://localhost:9010/eureka}
+  instance:
+    preferIpAddress: true
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/pioun/hexon-config.git
+          searchPaths: '{application}/'
+---
+spring:
+  profiles: git-local
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:../hexon-config
+          searchPaths: '{application}/'
+          baseDir: target/config

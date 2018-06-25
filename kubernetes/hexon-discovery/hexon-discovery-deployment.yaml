@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hexon-discovery-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hexon-discovery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hexon-discovery-service
+    spec:
+      containers:
+      - name: hexon-discovery-service
+        image: hexon-discovery-service:1.0.0-SNAPSHOT
+        ports:
+        - containerPort: 9010
+          name: service
+        - containerPort: 9011
+          name: management
+        env:
+        - name: SPRING_CLOUD_CONFIG_URI
+          value: 'http://hexon-config-service:9000'

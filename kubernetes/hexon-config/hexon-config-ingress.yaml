@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hexon-config-ingress
+  annotations:
+    kubernetes.io/ingress.allow-http: 'true'
+spec:
+  rules:
+    - host: hexon.config.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hexon-config-service
+              servicePort: 9000
+          - path: /actuator
+            backend:
+              serviceName: hexon-config-service
+              servicePort: 9001

@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hexon-discovery-ingress
+  annotations:
+    kubernetes.io/ingress.allow-http: 'true'
+spec:
+  rules:
+    - host: hexon.discovery.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hexon-discovery-service
+              servicePort: 9010
+          - path: /actuator
+            backend:
+              serviceName: hexon-discovery-service
+              servicePort: 9011

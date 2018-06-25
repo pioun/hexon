@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pl.pioun</groupId>
-	<artifactId>mad-cow-pom</artifactId>
+	<artifactId>hexon-pom</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>mad-cow-pom</name>
-	<description>Parent pom for MadCow</description>
+	<name>hexon</name>
+	<description>Parent pom for Hexon</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -34,10 +34,10 @@
 	</properties>
 
 	<modules>
-		<module>mad-cow-ui</module>
-		<module>mad-cow-service</module>
-		<module>mad-cow-config-service</module>
-		<module>mad-cow-discovery-service</module>
+		<module>hexon-ui</module>
+		<module>hexon-service</module>
+		<module>hexon-config-service</module>
+		<module>hexon-discovery-service</module>
 	</modules>
 
 	<dependencyManagement>
