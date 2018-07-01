@@ -1,0 +1,12 @@
+bgg:
+  api:
+    url:
+     scheme: https
+     host: www.boardgamegeek.com
+     path: xmlapi2
+    search:
+      path: /search
+      params:
+        query: query
+        type: type
+        exact: exact

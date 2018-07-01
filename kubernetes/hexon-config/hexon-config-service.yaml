@@ -12,6 +12,6 @@ spec:
     protocol: TCP
   - port: 9001
     targetPort: 9001
-    name: management
+    name: actuator
     protocol: TCP
   type: NodePort

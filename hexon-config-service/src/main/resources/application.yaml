@@ -13,8 +13,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_SERVICE_URI:http://localhost:9010/eureka}
+    registryFetchIntervalSeconds: 5
   instance:
-    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
 
 spring:
   cloud:

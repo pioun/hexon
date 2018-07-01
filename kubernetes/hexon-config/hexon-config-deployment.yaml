@@ -23,6 +23,9 @@ spec:
         volumeMounts:
           - name: ssh-key-volume
             mountPath: /root/.ssh
+        env:
+          - name: EUREKA_SERVICE_URI
+            value: 'http://hexon-discovery-service:9010/eureka'
       volumes:
         - name: ssh-key-volume
           secret:

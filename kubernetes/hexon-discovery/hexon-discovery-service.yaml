@@ -12,6 +12,6 @@ spec:
     protocol: TCP
   - port: 9011
     targetPort: 9011
-    name: management
+    name: actuator
     protocol: TCP
   type: NodePort
