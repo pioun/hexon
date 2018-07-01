@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hexon-bgg-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hexon-bgg-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hexon-bgg-service
+    spec:
+      containers:
+      - name: hexon-bgg-service
+        image: hexon-bgg-service:1.0.0-SNAPSHOT
+        ports:
+        - containerPort: 9020
+          name: service
+        - containerPort: 9021
+          name: management
+        env:
+        - name: SPRING_CLOUD_CONFIG_URI
+          value: 'http://hexon-config-service:9000'

@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hexon-bgg-ingress
+  annotations:
+    kubernetes.io/ingress.allow-http: 'true'
+spec:
+  rules:
+    - host: hexon.bgg.local
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hexon-bgg-service
+              servicePort: 9020
+          - path: /actuator
+            backend:
+              serviceName: hexon-bgg-service
+              servicePort: 9021
