@@ -10,3 +10,9 @@ bgg:
         query: query
         type: type
         exact: exact
+    thing:
+      path: /thing
+      params:
+        id: id
+        type: type
+        stats: stats

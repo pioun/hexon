@@ -5,6 +5,6 @@ import pl.pioun.hexon.bgg.model.BggBoardgame;
 
 public interface LookupService {
 
-  List<BggBoardgame> lookup(final String boardgameName);
+    List<BggBoardgame> lookup(final String boardgameName);
 
 }

@@ -10,8 +10,8 @@ import pl.pioun.hexon.bgg.model.BggBoardgame;
 @Api
 public interface LookupControllerApi {
 
-  @ApiOperation(value = "Retrieve list of boardgames from BoardGameGeek by name", response = BggBoardgame.class, responseContainer = "List")
-  @ApiImplicitParam(name = "boardgameName", value = "Name of the boardgame", required = true, example = "Vikings Gone Wild")
-  ResponseEntity<List<BggBoardgame>> lookup(final String boardgameName);
+    @ApiOperation(value = "Retrieve list of boardgames from BoardGameGeek by name", response = BggBoardgame.class, responseContainer = "List")
+    @ApiImplicitParam(name = "boardgameName", value = "Name of the boardgame", required = true, example = "Vikings Gone Wild")
+    ResponseEntity<List<BggBoardgame>> lookup(final String boardgameName);
 
 }

@@ -15,17 +15,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class SwaggerConfiguration {
 
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2).select()
-        .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
-        .paths(PathSelectors.any()).build().apiInfo(apiInfo());
-  }
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+            .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+            .paths(PathSelectors.any()).build().apiInfo(apiInfo());
+    }
 
-  private ApiInfo apiInfo() {
-    return new ApiInfoBuilder().title("Hexon BoardGameGeek API").version("1.0")
-        .description("All operations related to BoardGameGeek site")
-        .termsOfServiceUrl("Terms of service").build();
-  }
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder().title("Hexon BoardGameGeek API").version("1.0")
+            .description("All operations related to BoardGameGeek site")
+            .termsOfServiceUrl("Terms of service").build();
+    }
 
 }

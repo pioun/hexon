@@ -9,31 +9,46 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "bgg.api")
 public class ApiProperties {
 
-  private Url url;
-  private Search search;
-
-  @Data
-  public static class Url {
-
-    private String scheme;
-    private String host;
-    private String path;
-  }
-
-  @Data
-  public static class Search {
-
-    private String path;
-    private Params params;
+    private Url url;
+    private Search search;
+    private Thing thing;
 
     @Data
-    public static class Params {
+    public static class Url {
 
-      private String query;
-      private String type;
-      private String exact;
+        private String scheme;
+        private String host;
+        private String path;
     }
 
-  }
+    @Data
+    public static class Search {
+
+        private String path;
+        private Params params;
+
+        @Data
+        public static class Params {
+
+            private String query;
+            private String type;
+            private String exact;
+        }
+    }
+
+    @Data
+    public static class Thing {
+
+        private String path;
+        private Params params;
+
+        @Data
+        public static class Params {
+
+            private String id;
+            private String type;
+            private String stats;
+        }
+    }
 
 }
